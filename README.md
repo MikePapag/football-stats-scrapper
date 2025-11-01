@@ -1,4 +1,5 @@
 Football Stats Scraper ⚽
+
 A powerful Selenium-based web scraper that extracts comprehensive football statistics from FootyStats.org for data analysis and match predictions.
 
 🚀 Features
