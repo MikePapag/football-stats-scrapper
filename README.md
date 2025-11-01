@@ -59,6 +59,7 @@ Run the scraper:
 
 bash
 python src/football_scraper.py
+
 📋 Requirements
 
 Create a requirements.txt file with:
@@ -66,6 +67,7 @@ Create a requirements.txt file with:
 txt
 selenium==4.15.0
 webdriver-manager==4.0.1
+
 🎯 Usage
 
 Run the script:
