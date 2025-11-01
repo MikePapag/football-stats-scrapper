@@ -3,6 +3,7 @@ Football Stats Scraper ⚽
 A powerful Selenium-based web scraper that extracts comprehensive football statistics from FootyStats.org for data analysis and match predictions.
 
 🚀 Features
+
 Automated Data Collection: Scrapes home and away team statistics including form, goals, xG, possession, and shots
 
 Multi-Season Support: Collects both current and previous season data
@@ -16,6 +17,7 @@ CSV Export: Clean data output in CSV format for easy analysis
 Automatic ChromeDriver Management: No manual driver updates required
 
 📊 Data Collected
+
 Home/Away Form Statistics
 Matches Played, Wins, Draws, Losses
 
@@ -35,6 +37,7 @@ Possession Average
 Shots Taken per Match
 
 🛠️ Installation
+
 Prerequisites
 Python 3.7+
 
@@ -57,12 +60,14 @@ Run the scraper:
 bash
 python src/football_scraper.py
 📋 Requirements
+
 Create a requirements.txt file with:
 
 txt
 selenium==4.15.0
 webdriver-manager==4.0.1
 🎯 Usage
+
 Run the script:
 
 bash
@@ -82,6 +87,7 @@ Start scraping? (y/n): y
 Check the generated match_stats.csv file for your data.
 
 🔧 Technical Details
+
 Selenium Implementation
 Headless Chrome: Runs in background without GUI
 
@@ -112,6 +118,7 @@ Stat Type: Specific statistic name
 Value: Statistic value
 
 🧪 Example Output
+
 csv
 Team,Season,Stat Type,Value
 Manchester United,Current,Home Form_Played,8
@@ -121,6 +128,7 @@ Manchester United,Current,Home Form_Losses,1
 Manchester United,Current,Home_Scored / Match,2.25
 ...
 ⚠️ Important Notes
+
 Respect website terms of service
 
 Use appropriate delays to avoid overloading servers
@@ -130,6 +138,7 @@ Data is for educational and analytical purposes
 Website structure changes may require code updates
 
 🐛 Troubleshooting
+
 Common Issues
 ChromeDriver errors:
 
