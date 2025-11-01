@@ -30,15 +30,13 @@ def setup_driver():
     options.add_argument(f"user-agent={random.choice(user_agents)}")
     
     try:
-        # Use webdriver_manager to automatically handle ChromeDriver
         service = Service(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service, options=options)
         return driver
     except Exception as e:
         print(f"Error setting up ChromeDriver: {e}")
         print("Trying alternative method...")
-        
-        # Fallback: Try with system ChromeDriver
+
         try:
             service = Service()
             driver = webdriver.Chrome(service=service, options=options)
@@ -128,7 +126,6 @@ def get_team_stats(team, season_type):
         
         driver.get(url)
         
-        # Wait for and interact with search box
         team_search = WebDriverWait(driver, 15).until(
             EC.presence_of_element_located((By.XPATH, "//input[contains(@placeholder, 'Search Teams and Leagues')]"))
         )
@@ -136,25 +133,21 @@ def get_team_stats(team, season_type):
         team_search.clear()
         team_search.send_keys(team)
         human_delay()
-        
-        # Click on the team result
+
         result_click = WebDriverWait(driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, f"//div[contains(text(), '{team.title()}') or contains(text(), '{team.upper()}')]"))
         )
         result_click.click()
         human_delay()
-        
-        # Wait for team page to load
+
         WebDriverWait(driver, 15).until(
             EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'pa1e bbox w100 cf pb05e')]"))
         )
 
-        # Get current season stats
         current_stats = {**home_away_stats(driver), **get_table_stats(driver)}
         save_to_csv(team, season_type, current_stats)
         print(f"Successfully scraped current season data for {team}")
 
-        # Try to get previous season data if this is the current season
         if season_type == "Current":
             try:
                 print(f"Attempting to get previous season data for {team}...")
@@ -163,13 +156,11 @@ def get_team_stats(team, season_type):
                 )
                 season_dropdown.click()
                 human_delay()
-                
-                # Try to find and click previous season
+
                 previous_season = driver.find_element(By.XPATH, "//button[contains(text(), '2024') or contains(text(), '2023') or contains(text(), 'Previous')]")
                 previous_season.click()
                 human_delay()
                 
-                # Wait for page to update
                 WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'pa1e bbox w100 cf pb05e')]"))
                 )
@@ -188,7 +179,6 @@ def get_team_stats(team, season_type):
             driver.quit()
 
 def scrape_match(home_team, away_team):
-    # Initialize CSV file with headers
     with open('match_stats.csv', 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(['Team', 'Season', 'Stat Type', 'Value'])
@@ -202,12 +192,10 @@ def scrape_match(home_team, away_team):
     except Exception as e:
         print(f"Scraping failed: {e}")
 
-# Install required package first: pip install webdriver-manager
 if __name__ == "__main__":
     print("=== Football Stats Scraper ===")
     print("Enter the teams to scrape data for:")
-    
-    # Get user input for teams
+
     home_team = input("Enter home team: ").strip()
     while not home_team:
         print("Home team cannot be empty!")
@@ -219,8 +207,7 @@ if __name__ == "__main__":
         away_team = input("Enter away team: ").strip()
     
     print(f"\nScraping data for {home_team} (home) vs {away_team} (away)...")
-    
-    # Optional: Add a confirmation
+
     confirm = input("Start scraping? (y/n): ").strip().lower()
     if confirm in ['y', 'yes', '']:
         scrape_match(home_team, away_team)
